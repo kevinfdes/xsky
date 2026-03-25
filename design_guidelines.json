@@ -1,0 +1,117 @@
+{
+  "theme_strategy": {
+    "primary_theme": "system-aware",
+    "archetype_selected": "Archetype 3 (Pastel & Soft) with Neo-Brutalist Twist",
+    "emotion": "Optimistic, Structural, Tactile, Safe",
+    "rationale": "To serve as a healthier alternative to X, the UI avoids the toxic, hyper-glossy or cold-corporate tech look. Instead, it uses soft pastels (mint, lavender, butter) grounded by sharp, high-contrast borders (Neo-Brutalism) to feel both friendly and structured."
+  },
+  "colors": {
+    "light_mode": {
+      "background": "#FCFBF4",
+      "surface": "#FFFFFF",
+      "border": "#111111",
+      "text_primary": "#111111",
+      "text_secondary": "#555555",
+      "primary_cta": "#A3E6D0",
+      "primary_cta_hover": "#8DD4BE",
+      "accent_lavender": "#E1D4F9",
+      "accent_peach": "#FAD9A6",
+      "accent_sky": "#BDE0FE",
+      "danger": "#FF6B6B"
+    },
+    "dark_mode": {
+      "background": "#0F0F0F",
+      "surface": "#1A1A1A",
+      "border": "#333333",
+      "text_primary": "#F5F5F5",
+      "text_secondary": "#A0A0A0",
+      "primary_cta": "#85D4B9",
+      "primary_cta_hover": "#A3E6D0",
+      "accent_lavender": "#B8A3E6",
+      "accent_peach": "#EBBF7E",
+      "accent_sky": "#90C2F0",
+      "danger": "#FF4C4C"
+    }
+  },
+  "typography": {
+    "heading_font": "Outfit",
+    "body_font": "Figtree",
+    "sizes": {
+      "h1": "text-4xl sm:text-5xl tracking-tight leading-none font-bold",
+      "h2": "text-2xl sm:text-3xl tracking-tight leading-tight font-semibold",
+      "h3": "text-xl sm:text-2xl tracking-tight font-medium",
+      "body": "text-base leading-relaxed",
+      "small": "text-sm text-secondary",
+      "overline": "text-xs tracking-[0.2em] uppercase font-bold"
+    },
+    "rules": [
+      "Headings strictly use tight tracking to look engineered and modern.",
+      "Use explicit active and hover text color changes."
+    ]
+  },
+  "spacing_and_layout": {
+    "global_spacing": "Generous. p-6 or p-8 for post items. gap-6 between feed components.",
+    "grid_structure": {
+      "mobile": "grid-cols-1",
+      "desktop": "grid-cols-1 md:grid-cols-12 max-w-7xl mx-auto gap-8",
+      "layout_mapping": {
+        "sidebar_left": "col-span-3 sticky top-0 h-screen py-8",
+        "main_feed": "col-span-6 border-x border-border/40 min-h-screen",
+        "sidebar_right": "col-span-3 sticky top-0 h-screen py-8 hidden lg:block"
+      }
+    },
+    "borders_and_surfaces": {
+      "posts": "Cardless feel, delineated by 1px hard borders (border-b) between items instead of floating cards.",
+      "containers": "Use rounded-2xl or rounded-3xl with hard 1px border. No soft shadows. If shadow is used, it must be solid (e.g., 4px 4px 0px #111111) for Neo-Brutalist pop.",
+      "avatars": "Use rounded-xl instead of full circles to distinguish from legacy platforms."
+    }
+  },
+  "components": {
+    "buttons": "Shadcn based. Add active:translate-y-0.5 for tactile press. Primary CTA is solid pale mint with black text.",
+    "tabs": "Minimalist. No pill backgrounds. Underline indicator for active tab (For You / Following).",
+    "inputs": "Hard borders, ring-primary on focus. Rounded-xl.",
+    "post_actions": "Phosphor icons (Heart, ArrowsClockwise, ChatTeardrop, BookmarkSimple). Hovering highlights the icon in its respective color (e.g., Heart to accent_lavender) and subtle background tint."
+  },
+  "motion_and_interaction": {
+    "hover": "Subtle background shifts. Elements lift slightly or cast a hard drop-shadow.",
+    "transitions": "transition-all duration-200 ease-in-out",
+    "microinteractions": "Heart/Like icon has a quick spring scale effect on click."
+  },
+  "media_and_assets": {
+    "icons": "@phosphor-icons/react",
+    "image_urls": {
+      "hero_light": {
+        "url": "https://static.prod-images.emergentagent.com/jobs/6499a403-7a95-4b6a-8ba2-0e7a5039f363/images/3644b5389747ba622836f8cf2fa77a65c786e1bd1077fd8bc415de4ea9cbb53b.png",
+        "description": "Abstract pastel brutalist background for light mode auth/landing page."
+      },
+      "hero_dark": {
+        "url": "https://static.prod-images.emergentagent.com/jobs/6499a403-7a95-4b6a-8ba2-0e7a5039f363/images/11eee22849748b890d63ad9e2679891de5b8b9272858b88adb38761353795733.png",
+        "description": "Abstract dark brutalist background for dark mode auth/landing page."
+      },
+      "avatars": [
+        "https://images.unsplash.com/photo-1614436201459-156d322d38c6?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NjZ8MHwxfHNlYXJjaHwxfHxwZXJzb24lMjBwb3J0cmFpdCUyMHNtaWxpbmd8ZW58MHx8fHwxNzc0NDc5ODE2fDA&ixlib=rb-4.1.0&q=85",
+        "https://images.unsplash.com/photo-1574888121821-1dc5d49eeba1?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NjZ8MHwxfHNlYXJjaHwzfHxwZXJzb24lMjBwb3J0cmFpdCUyMHNtaWxpbmd8ZW58MHx8fHwxNzc0NDc5ODE2fDA&ixlib=rb-4.1.0&q=85",
+        "https://images.unsplash.com/photo-1603775493298-e06a5f21e46c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NjZ8MHwxfHNlYXJjaHwyfHxwZXJzb24lMjBwb3J0cmFpdCUyMHNtaWxpbmd8ZW58MHx8fHwxNzc0NDc5ODE2fDA&ixlib=rb-4.1.0&q=85",
+        "https://images.unsplash.com/photo-1544806722-0bf6ffad1844?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NjZ8MHwxfHNlYXJjaHw0fHxwZXJzb24lMjBwb3J0cmFpdCUyMHNtaWxpbmd8ZW58MHx8fHwxNzc0NDc5ODE2fDA&ixlib=rb-4.1.0&q=85",
+        "https://images.pexels.com/photos/3620354/pexels-photo-3620354.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+      ]
+    },
+    "rules": [
+      "Use avatars for mock posts in the feed.",
+      "Hero backgrounds should be used on Auth (login/signup) split screens."
+    ]
+  },
+  "testing_attributes": {
+    "rules": [
+      "All interactive elements must have data-testid. Examples: data-testid='post-submit-button', data-testid='like-button', data-testid='feed-tab-following'"
+    ]
+  },
+  "instructions_to_main_agent": [
+    "Install required fonts: Outfit and Figtree.",
+    "Install @phosphor-icons/react for all icons.",
+    "Implement light/dark mode toggling using next-themes or manually via class strategies. Ensure the border colors and backgrounds flip accordingly.",
+    "Use standard Shadcn components but strip away the default Vercel-like soft shadows and radii. Replace with rounded-xl and hard 1px borders.",
+    "Ensure the layout mimics a 3-column split (Nav, Feed, Trending) on desktop.",
+    "Never use placeholder image services. Rely on the media_and_assets URLs provided above."
+  ]
+}
