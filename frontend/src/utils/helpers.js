@@ -12,7 +12,8 @@ export function formatRelativeTime(dateString) {
 
 export function renderContent(content, navigate) {
   if (!content) return null;
-  const parts = content.split(/(#\w+)/g);
+  // Split on hashtags and @mentions
+  const parts = content.split(/(#\w+|@\w+)/g);
   return parts.map((part, i) => {
     if (part.startsWith('#')) {
       const tag = part.slice(1);
@@ -22,7 +23,22 @@ export function renderContent(content, navigate) {
           className="hashtag cursor-pointer hover:underline"
           onClick={(e) => {
             e.stopPropagation();
-            navigate(`/explore?q=${encodeURIComponent(tag)}`);
+            navigate(`/hashtag/${encodeURIComponent(tag)}`);
+          }}
+        >
+          {part}
+        </span>
+      );
+    }
+    if (part.startsWith('@')) {
+      const username = part.slice(1);
+      return (
+        <span
+          key={i}
+          className="mention cursor-pointer hover:underline font-medium text-[#90C2F0] dark:text-[#90C2F0]"
+          onClick={(e) => {
+            e.stopPropagation();
+            navigate(`/profile/${username}`);
           }}
         >
           {part}

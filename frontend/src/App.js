@@ -8,6 +8,8 @@ import PostDetail from './pages/PostDetail';
 import Profile from './pages/Profile';
 import Explore from './pages/Explore';
 import Notifications from './pages/Notifications';
+import DirectMessages from './pages/DirectMessages';
+import HashtagPage from './pages/HashtagPage';
 import './App.css';
 
 const ProtectedRoute = ({ children }) => {
@@ -33,6 +35,9 @@ function AppRoutes() {
       <Route path="/profile/:username" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
       <Route path="/explore" element={<ProtectedRoute><Explore /></ProtectedRoute>} />
       <Route path="/notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
+      <Route path="/messages" element={<ProtectedRoute><DirectMessages /></ProtectedRoute>} />
+      <Route path="/messages/:convId" element={<ProtectedRoute><DirectMessages /></ProtectedRoute>} />
+      <Route path="/hashtag/:tag" element={<ProtectedRoute><HashtagPage /></ProtectedRoute>} />
       <Route path="/" element={<Navigate to="/home" replace />} />
     </Routes>
   );

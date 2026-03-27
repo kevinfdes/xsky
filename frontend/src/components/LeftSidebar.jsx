@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
-  House, Compass, Bell, User, BookmarkSimple, Gear, Sun, Moon, SignOut, PencilSimple
+  House, Compass, Bell, User, BookmarkSimple, Sun, Moon, SignOut, PencilSimple, ChatCircleDots
 } from '@phosphor-icons/react';
+import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import PostComposerModal from './PostComposerModal';
 
+const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+
 const NavItem = ({ icon: Icon, label, path, active, onClick, badge }) => {
   const navigate = useNavigate();
-  const handleClick = () => {
-    if (onClick) onClick();
-    else navigate(path);
-  };
+  const handleClick = () => { if (onClick) onClick(); else navigate(path); };
   return (
     <button
-      data-testid={`nav-${label.toLowerCase()}`}
+      data-testid={`nav-${label.toLowerCase().replace(/ /g, '-')}`}
       onClick={handleClick}
       className={`flex items-center gap-3 px-4 py-3 rounded-xl w-full transition-all duration-150 font-['Outfit',sans-serif] font-medium text-base relative
         ${active
@@ -26,7 +26,7 @@ const NavItem = ({ icon: Icon, label, path, active, onClick, badge }) => {
       <Icon size={22} weight={active ? 'fill' : 'regular'} />
       <span className="hidden xl:block">{label}</span>
       {badge > 0 && (
-        <span className="absolute left-6 top-1.5 bg-red-500 text-white text-xs w-4 h-4 rounded-full flex items-center justify-center font-bold xl:static xl:ml-auto">
+        <span className="absolute left-7 top-2 bg-red-500 text-white text-[10px] min-w-[16px] h-4 px-1 rounded-full flex items-center justify-center font-bold xl:static xl:ml-auto xl:px-2 xl:py-0.5 xl:text-xs">
           {badge > 9 ? '9+' : badge}
         </span>
       )}
@@ -40,39 +40,59 @@ const LeftSidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [showComposer, setShowComposer] = useState(false);
-  const [unreadCount] = useState(0);
-
+  const [unreadNotifs, setUnreadNotifs] = useState(0);
+  const [unreadDMs, setUnreadDMs] = useState(0);
   const path = location.pathname;
+
+  // Poll for unread counts every 30s
+  useEffect(() => {
+    const poll = async () => {
+      try {
+        const [notifRes, dmRes] = await Promise.all([
+          axios.get(`${API}/notifications/unread-count`),
+          axios.get(`${API}/dms/unread-count`),
+        ]);
+        setUnreadNotifs(notifRes.data.count);
+        setUnreadDMs(dmRes.data.count);
+      } catch {}
+    };
+    poll();
+    const interval = setInterval(poll, 30000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Reset badge when visiting notifications
+  useEffect(() => {
+    if (path === '/notifications') setUnreadNotifs(0);
+    if (path === '/messages') setUnreadDMs(0);
+  }, [path]);
 
   return (
     <div className="sticky top-0 h-screen flex flex-col justify-between px-3 py-6 border-r border-[#111111]/10 dark:border-[#333333]">
-      {/* Logo */}
       <div>
+        {/* Logo */}
         <button
           data-testid="logo-btn"
           onClick={() => navigate('/home')}
-          className="flex items-center gap-2 px-4 mb-6 group"
+          className="flex items-center gap-2 px-4 mb-6"
         >
           <div className="w-9 h-9 bg-[#A3E6D0] dark:bg-[#85D4B9] rounded-xl border border-[#111111] dark:border-[#333333] neo-shadow-sm flex items-center justify-center font-['Outfit'] font-black text-[#111111] text-lg">
             A
           </div>
-          <span className="hidden xl:block font-['Outfit',sans-serif] font-bold text-xl text-[#111111] dark:text-[#F5F5F5]">
-            Agora
-          </span>
+          <span className="hidden xl:block font-['Outfit',sans-serif] font-bold text-xl text-[#111111] dark:text-[#F5F5F5]">Agora</span>
         </button>
 
-        {/* Navigation */}
+        {/* Nav */}
         <nav className="flex flex-col gap-1">
           <NavItem icon={House} label="Home" path="/home" active={path === '/home'} />
           <NavItem icon={Compass} label="Explore" path="/explore" active={path === '/explore'} />
-          <NavItem icon={Bell} label="Notifications" path="/notifications" active={path === '/notifications'} badge={unreadCount} />
+          <NavItem icon={Bell} label="Notifications" path="/notifications" active={path === '/notifications'} badge={unreadNotifs} />
+          <NavItem icon={ChatCircleDots} label="Messages" path="/messages" active={path.startsWith('/messages')} badge={unreadDMs} />
           <NavItem icon={BookmarkSimple} label="Bookmarks" path="/bookmarks" active={path === '/bookmarks'} />
-          {user && (
-            <NavItem icon={User} label="Profile" path={`/profile/${user.username}`} active={path.startsWith('/profile')} />
-          )}
+          {user && <NavItem icon={User} label="Profile" path={`/profile/${user.username}`} active={path.startsWith('/profile')} />}
         </nav>
 
-        {/* New Post Button */}
+        {/* New Post */}
         <button
           data-testid="new-post-btn"
           onClick={() => setShowComposer(true)}
@@ -83,7 +103,7 @@ const LeftSidebar = () => {
         </button>
       </div>
 
-      {/* Bottom section */}
+      {/* Bottom */}
       <div className="flex flex-col gap-1">
         <button
           data-testid="theme-toggle"
@@ -96,7 +116,7 @@ const LeftSidebar = () => {
 
         {user && (
           <div className="flex items-center gap-2 px-4 py-3 rounded-xl border border-[#111111]/10 dark:border-[#333333] mt-1">
-            <div className="w-8 h-8 rounded-xl bg-[#E1D4F9] dark:bg-[#B8A3E6] border border-[#111111]/20 dark:border-[#333333] flex items-center justify-center text-xs font-bold text-[#111111] dark:text-[#0F0F0F] overflow-hidden flex-shrink-0">
+            <div className="w-8 h-8 rounded-xl bg-[#E1D4F9] dark:bg-[#B8A3E6]/40 border border-[#111111]/20 dark:border-[#333333] flex items-center justify-center text-xs font-bold text-[#111111] dark:text-[#0F0F0F] overflow-hidden flex-shrink-0">
               {user.avatar_url
                 ? <img src={user.avatar_url} alt="" className="w-full h-full object-cover" />
                 : user.display_name?.slice(0, 2).toUpperCase()
