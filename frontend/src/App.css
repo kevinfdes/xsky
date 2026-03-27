@@ -1,34 +1,65 @@
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+.neo-shadow {
+  box-shadow: 4px 4px 0px #111111;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+.dark .neo-shadow {
+  box-shadow: 4px 4px 0px #333333;
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+.neo-shadow-sm {
+  box-shadow: 2px 2px 0px #111111;
 }
 
-.App-link {
-    color: #61dafb;
+.dark .neo-shadow-sm {
+  box-shadow: 2px 2px 0px #333333;
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+.hashtag {
+  color: #2563eb;
+  font-weight: 500;
+}
+.dark .hashtag {
+  color: #90C2F0;
+}
+
+.post-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  color: #555555;
+  background: transparent;
+  border: none;
+}
+.dark .post-action-btn {
+  color: #A0A0A0;
+}
+
+.post-action-btn:hover {
+  background: rgba(163, 230, 208, 0.15);
+  color: #111111;
+}
+.dark .post-action-btn:hover {
+  background: rgba(133, 212, 185, 0.15);
+  color: #F5F5F5;
+}
+
+.post-action-btn.liked {
+  color: #FF4C4C;
+}
+
+.post-action-btn.reposted {
+  color: #A3E6D0;
+}
+.dark .post-action-btn.reposted {
+  color: #85D4B9;
+}
+
+.post-action-btn.bookmarked {
+  color: #FAD9A6;
 }
