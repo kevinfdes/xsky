@@ -240,7 +240,7 @@ const PostCard = ({ post: initialPost, onDelete, onQuote, showThread = false }) 
           {post.view_count > 0 && (
             <div className="flex items-center gap-1 mt-1.5">
               <Eye size={12} className="text-[#555555] dark:text-[#A0A0A0]" />
-              <span className="text-xs text-[#555555] dark:text-[#A0A0A0]">{post.view_count} views</span>
+              <span className="text-xs text-[#555555] dark:text-[#A0A0A0]">{post.view_count} {post.view_count === 1 ? 'view' : 'views'}</span>
             </div>
           )}
 
